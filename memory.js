@@ -12,7 +12,6 @@ const cardGenerator = (cardValue) => {
   card.classList.add('card');
   card.dataset.value = cardValue;
   card.setAttribute('src', './images/interrogante.jpg');
-  console.log(cardValue)
 
   return card;
 };
@@ -20,7 +19,7 @@ const cardGenerator = (cardValue) => {
 // Creamos tablero de juego:
 const game = document.querySelector('.game');
 for (let i = 0; i < cardValues.length; i++) {
-  //
+  //Generamos dos veces las mismas cartas:
   cards.push(cardGenerator(cardValues[i]));
   cards.push(cardGenerator(cardValues[i]));
 }
