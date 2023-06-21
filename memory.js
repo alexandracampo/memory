@@ -4,50 +4,19 @@ const cardValues = ['./images/foto2.JPG', './images/foto4.JPG', './images/foto5.
 //Generamos un duplicado de las cartas y las randomizamos:
 const randomisedElements = ([].concat(cardValues, cardValues.slice())).sort(() => Math.random() - 0.5);
 
-const cards = [];
 const matchedCards = [];
 let flippedCards = [];
 
 // Creamos tablero de juego:
 const game = document.querySelector('.game');
 
-// Creamos el método para generar la tarjeta:
-const cardGenerator = (cardValue) => {
-  const card = document.createElement('img');
-  card.classList.add('card');
-  card.dataset.value = cardValue;
-  card.setAttribute('src', './images/interrogante.jpg');
-  card.addEventListener('click', flipCard);
-
-  // Agregar tarjeta al tablero y agregarle eventListener:
-  game.appendChild(card);
-};
-
-// Agregamos las tarjetas desde cardGenerator:
-for (let i = 0; i < randomisedElements.length; i++) {
-  cardGenerator(randomisedElements[i]);
-}
-
-// Definimos la función de voltear la tarjeta:
-function flipCard() {
-  if (flippedCards.length < 2 && !flippedCards.includes(this) && !matchedCards.includes(this)) {
-    this.setAttribute('src', this.dataset.value);
-    flippedCards.push(this);
-    if (flippedCards.length === 2) {
-      setTimeout(checkMatch, 1000);
-    }
-  }
-}
 
 //Función efecto confeti:
-function generateConfetti() {
-  const duration = 15 * 1000,
-    animationEnd = Date.now() + duration,
-    defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-  function randomInRange(min, max) {
-    return Math.random() * (max - min) + min;
-  }
+const generateConfetti = () => {
+  const duration = 15 * 1000;
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+  const randomInRange = (min, max) => { return Math.random() * (max - min) + min; };
 
   const interval = setInterval(function () {
     const timeLeft = animationEnd - Date.now();
@@ -72,26 +41,61 @@ function generateConfetti() {
       })
     );
   }, 250);
-}
+};
 
 // Definimos la función que verifica el match de las tarjetas:
-function checkMatch() {
+const checkMatch = () => {
   if (flippedCards[0].dataset.value === flippedCards[1].dataset.value) {
     flippedCards.forEach(card => {
       matchedCards.push(card);
       card.removeEventListener('click', flipCard);
     });
+
+    // Limpiar el array de las tarjetas giradas:
     flippedCards = [];
     if (matchedCards.length === cards.length) {
-
       generateConfetti();
-
     }
 
   } else {
+    //Oculta la imagen para continuar con el juego:
     flippedCards.forEach(card => card.setAttribute('src', './images/interrogante.jpg'));
+    //Limpia targetas giradas:
     flippedCards = [];
   }
+};
+
+
+// Definimos la función de voltear la tarjeta:
+function flipCard() {
+  console.log(this);
+  if (flippedCards.length < 2 && !flippedCards.includes(this) && !matchedCards.includes(this)) {
+    this.setAttribute('src', this.dataset.value);
+    flippedCards.push(this);
+
+    if (flippedCards.length === 2) {
+      setTimeout(checkMatch, 1000);
+    }
+  }
 }
+
+// Creamos función para generar la tarjeta:
+const cardGenerator = (cardValue) => {
+  const card = document.createElement('img');
+
+  card.classList.add('card');
+  card.dataset.value = cardValue;
+  card.setAttribute('src', './images/interrogante.jpg');
+  card.addEventListener('click', flipCard, card);
+
+  // Añadimos tarjeta al tablero y añadimos el handleClick:
+  game.appendChild(card);
+};
+
+// Usamos forEach para "iterar" sobre cada elemento del array sin necesidad de usar un bucle for:
+randomisedElements.forEach((picture) => {
+  cardGenerator(picture);
+});
+
 
 
