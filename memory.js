@@ -4,7 +4,7 @@ const cardValues = ['./images/foto2.JPG', './images/foto4.JPG', './images/foto5.
 //Generamos un duplicado de las cartas y las randomizamos:
 const randomisedElements = ([].concat(cardValues, cardValues.slice())).sort(() => Math.random() - 0.5);
 
-const matchedCards = [];
+let remainingCards = randomisedElements.length;
 let flippedCards = [];
 
 // Creamos tablero de juego:
@@ -47,13 +47,13 @@ const generateConfetti = () => {
 const checkMatch = () => {
   if (flippedCards[0].dataset.value === flippedCards[1].dataset.value) {
     flippedCards.forEach(card => {
-      matchedCards.push(card);
+      remainingCards -= 1;
       card.removeEventListener('click', flipCard);
     });
 
     // Limpiar el array de las tarjetas giradas:
     flippedCards = [];
-    if (matchedCards.length === cards.length) {
+    if (remainingCards === 0) {
       generateConfetti();
     }
 
@@ -69,7 +69,7 @@ const checkMatch = () => {
 // Definimos la función de voltear la tarjeta:
 function flipCard() {
   console.log(this);
-  if (flippedCards.length < 2 && !flippedCards.includes(this) && !matchedCards.includes(this)) {
+  if (flippedCards.length < 2 && !flippedCards.includes(this)) {
     this.setAttribute('src', this.dataset.value);
     flippedCards.push(this);
 
