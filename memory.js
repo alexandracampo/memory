@@ -1,10 +1,15 @@
 // Define variables
-let cardValues = ['./images/foto2.JPG', './images/foto4.JPG', './images/foto5.JPG', './images/foto6.JPG', './images/foto7.JPG', './images/foto8.JPG', './images/foto9.JPG', './images/foto10.JPG', './images/foto11.JPG', './images/foto12.JPG'];
+const cardValues = ['./images/foto2.JPG', './images/foto4.JPG', './images/foto5.JPG', './images/foto6.JPG', './images/foto7.JPG', './images/foto8.JPG', './images/foto9.JPG', './images/foto10.JPG', './images/foto11.JPG', './images/foto12.JPG'];
 
-let cards = [];
+//Generamos un duplicado de las cartas y las randomizamos:
+const randomisedCards = ([].concat(cardValues, cardValues.slice())).sort(() => Math.random() - 0.5);
+
+const cards = [];
+const matchedCards = [];
 let flippedCards = [];
-let matchedCards = [];
 
+// Creamos tablero de juego:
+const game = document.querySelector('.game');
 
 // Creamos el método para generar la tarjeta:
 const cardGenerator = (cardValue) => {
@@ -12,20 +17,13 @@ const cardGenerator = (cardValue) => {
   card.classList.add('card');
   card.dataset.value = cardValue;
   card.setAttribute('src', './images/interrogante.jpg');
-
   return card;
 };
 
-// Creamos tablero de juego:
-const game = document.querySelector('.game');
-for (let i = 0; i < cardValues.length; i++) {
-  //Generamos dos veces las mismas cartas:
-  cards.push(cardGenerator(cardValues[i]));
-  cards.push(cardGenerator(cardValues[i]));
+// Pasamos todas las cartas por la función cardGenerator para que nos aparezcan todos los elementos <img/> : 
+for (let i = 0; i < randomisedCards.length; i++) {
+  cards.push(cardGenerator(randomisedCards[i]));
 }
-
-// Barajar cartas:
-cards.sort(() => Math.random() - 0.5);
 
 // Add cards to game board
 cards.forEach(card => {
