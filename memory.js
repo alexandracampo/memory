@@ -2,7 +2,7 @@
 const cardValues = ['./images/foto2.JPG', './images/foto4.JPG', './images/foto5.JPG', './images/foto6.JPG', './images/foto7.JPG', './images/foto8.JPG', './images/foto9.JPG', './images/foto10.JPG', './images/foto11.JPG', './images/foto12.JPG'];
 
 //Generamos un duplicado de las cartas y las randomizamos:
-const randomisedCards = ([].concat(cardValues, cardValues.slice())).sort(() => Math.random() - 0.5);
+const randomisedElements = ([].concat(cardValues, cardValues.slice())).sort(() => Math.random() - 0.5);
 
 const cards = [];
 const matchedCards = [];
@@ -17,19 +17,16 @@ const cardGenerator = (cardValue) => {
   card.classList.add('card');
   card.dataset.value = cardValue;
   card.setAttribute('src', './images/interrogante.jpg');
-  return card;
+  card.addEventListener('click', flipCard);
+
+  // Agregar tarjeta al tablero y agregarle eventListener:
+  game.appendChild(card);
 };
 
-// Pasamos todas las cartas por la función cardGenerator para que nos aparezcan todos los elementos <img/> : 
-for (let i = 0; i < randomisedCards.length; i++) {
-  cards.push(cardGenerator(randomisedCards[i]));
+// Agregamos las tarjetas desde cardGenerator:
+for (let i = 0; i < randomisedElements.length; i++) {
+  cardGenerator(randomisedElements[i]);
 }
-
-// Add cards to game board
-cards.forEach(card => {
-  game.appendChild(card);
-  card.addEventListener('click', flipCard);
-});
 
 // Definimos la función de voltear la tarjeta:
 function flipCard() {
