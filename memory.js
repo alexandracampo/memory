@@ -6,13 +6,13 @@ let flippedCards = [];
 let matchedCards = [];
 
 
-// create a method to generate a card:
+// Creamos el método para generar la tarjeta:
 const cardGenerator = (cardValue) => {
   const card = document.createElement('img');
-
   card.classList.add('card');
   card.dataset.value = cardValue;
   card.setAttribute('src', './images/interrogante.jpg');
+  console.log(cardValue)
 
   return card;
 };
@@ -20,7 +20,7 @@ const cardGenerator = (cardValue) => {
 // Creamos tablero de juego:
 const game = document.querySelector('.game');
 for (let i = 0; i < cardValues.length; i++) {
-  //You call the new method twice, so you don't need a for statement for that
+  //
   cards.push(cardGenerator(cardValues[i]));
   cards.push(cardGenerator(cardValues[i]));
 }
