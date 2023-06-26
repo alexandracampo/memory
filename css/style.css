@@ -141,7 +141,6 @@ h1 span:nth-child(14) {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
 }
 
 .card {
@@ -191,5 +190,13 @@ h1 span:nth-child(14) {
         margin: 1rem;
         width: 8rem;
         height: 8rem;
+    }
+}
+
+
+@media screen and (min-width: 1024px) {
+    .game {
+        width: 60rem;
+        margin: auto;
     }
 }
