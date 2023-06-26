@@ -1,5 +1,5 @@
 // Define variables
-const cardValues = ['./images/foto2.JPG', './images/foto4.JPG', './images/foto5.JPG', './images/foto6.JPG', './images/foto7.JPG', './images/foto8.JPG', './images/foto9.JPG', './images/foto10.JPG', './images/foto11.JPG', './images/foto12.JPG'];
+const cardValues = ['./images/foto1.JPG', './images/foto2.JPG', './images/foto4.JPG', './images/foto5.JPG', './images/foto6.JPG', './images/foto7.JPG', './images/foto8.JPG', './images/foto9.JPG', './images/foto10.JPG', './images/foto11.JPG', './images/foto12.JPG', './images/foto13.JPG', './images/foto14.JPG', './images/foto15.JPG', './images/foto16.JPG',];
 
 //Generamos un duplicado de las cartas y las randomizamos:
 const randomisedElements = ([].concat(cardValues, cardValues.slice())).sort(() => Math.random() - 0.5);
